@@ -1,3 +1,10 @@
+classes:
+- service.grafana.collector
+- system.linux.system.repo.mcp.extra
+- system.heka.log_collector.single
+- system.heka.log_collector.output.telegraf
+- system.prometheus.collector
+- system.telegraf.agent
 parameters:
   _param:
     stacklight_monitor_address: 172.16.10.252
@@ -7,7 +14,8 @@ parameters:
     stacklight_monitor_node01_address: 172.16.10.107
     stacklight_monitor_node02_address: 172.16.10.108
     stacklight_monitor_node03_address: 172.16.10.109
-
+    salt_minion_ca_host: cfg01.${_param:cluster_domain}
+    salt_minion_ca_authority: salt_master_ca
     # Glusterfs
     glusterfs_service_host: ${_param:stacklight_monitor_address}
 
@@ -26,6 +34,7 @@ parameters:
     heka_elasticsearch_host: ${_param:stacklight_monitor_address}
     elasticsearch_port: 9200
     stacklight_environment: ${_param:cluster_domain}
+    stacklight_notification_topic: stacklight_notifications
   linux:
     network:
       host:
